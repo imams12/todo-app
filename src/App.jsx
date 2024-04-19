@@ -1,68 +1,58 @@
-import { useRef } from 'react';
-import './App.css'
-import Home from './pages/Home/Home';
+import { useRef } from "react";
+import "./App.css";
+import Home from "./pages/Home/Home";
+import Login from "./pages/Authentication/components/Login";
+import { Component } from "react";
+import Parent from "./pages/Parent";
+import Product from "./pages/Product/Product";
+import ListProduct from "./pages/Product/component/ListProduct";
 
-function App() {
-  // const nameRef = useRef(null);
-  // const nameListRef = useRef(null);
-
-  // const handleSubmit = () => {
-  //   const name = nameRef.current.value;
-    
-  //   if (name === '') return;
-      
-  //   document.getElementById('nameDisplay').textContent = name;
-    
-  //   const newListItem = document.createElement('li');
-  //   const deleteButton = document.createElement('button')
-    
-  //   newListItem.textContent = name;
-  //   deleteButton.textContent = 'delete'
-    
-  //   deleteButton.onclick = function (){
-  //     // newListItem.parentNode.removeChild(newListItem);
-  //     nameListRef.current.removeChild(newListItem);
-  //   }
-
-  //   nameListRef.current.appendChild(newListItem)
-  //   newListItem.appendChild(deleteButton)
-
-  //   //membersihkan inputan
-  //   nameRef.current.value = '';
+class App extends Component {
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     // name : 'Imam'
+  //     // count: 0,
+  //     // isVisible : true
+  //     textSize: 16, // nilai awal ukuran text
+  //   };
   // }
 
-  // // function sayHello(name){
-  // //   return `welcome ${name}`
-  // // }
-
-  // // const name = 'enigmacamp'
-
-  // // function getButtonText(){
-  // //   return 'Kirim'
-  // // }
-
-  // // const buttonText = {
-  // //   text: 'Send'
-  // // }
-
-  // const buttonStyle ={
-  //   color: 'blue',
-  //   backgroundColor:'pink'
+  // toggleVisibility = () =>{
+  //   this.setState(prevState =>({
+  //     isVisible : !prevState.isVisible
+  //   }))
   // }
+  state = {count : 0}
 
-  return (
-      // <div className='App'>
-      //   <h1 id='nameDisplay'> Enter Name</h1>
-      //   <label htmlFor='name' className='name'> Enter Name </label>
-      //   <input typeof='text' name='name' ref={nameRef}></input>
-      //   {/* <button  style={buttonStyle} onClick={handleSubmit}>{'Send'}</button> */}
-      //   {/* <button  className='my-button' onClick={handleSubmit}>{'Send'}</button> */}
-      //   <button  type="button" class="btn btn-primary" onClick={handleSubmit}>{'Send'}</button>
-      //   <ul ref={nameListRef}></ul>
+  incrementCount = () => {
+    this.setState((prevState => ({
+      count : prevState.count + 1
+    })))
+  }
+
+  increaseFont = () => {
+      this.setState((prevState) => ({
+        textSize: prevState.textSize + 1,
+      }));
+  };
+
+  decreaseFont = () => {
+      this.setState((prevState) => ({
+        textSize: prevState.textSize - 1,
+      }));
+  };
+
+  render() {
+    return (
+      // <div>
+      //   {/* <Parent name = "Imam" age= "23"/> */}
+      //   {/* <Parent count={this.state.count} onIncrement={this.incrementCount}></Parent> */}
+
       // </div>
-
-      <Home/>
-  )
+      <ListProduct/>
+    );
+  }
 }
 
-export default App
+export default App;
