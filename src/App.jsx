@@ -6,6 +6,10 @@ import { Component } from "react";
 import Parent from "./pages/Parent";
 import Product from "./pages/Product/Product";
 import ListProduct from "./pages/Product/component/ListProduct";
+import Header from "./shared/Header/Header";
+import Sidebar from "./shared/Sidebar/Sidebar";
+import Dashboard from "./shared/Dashboard/Dashboard";
+import Todo from "./shared/Todo/Todo";
 
 class App extends Component {
   // constructor(props) {
@@ -23,34 +27,43 @@ class App extends Component {
   //     isVisible : !prevState.isVisible
   //   }))
   // }
-  state = {count : 0}
+  // state = { count: 0 };
 
-  incrementCount = () => {
-    this.setState((prevState => ({
-      count : prevState.count + 1
-    })))
+  // incrementCount = () => {
+  //   this.setState((prevState) => ({
+  //     count: prevState.count + 1,
+  //   }));
+  // };
+
+  // increaseFont = () => {
+  //   this.setState((prevState) => ({
+  //     textSize: prevState.textSize + 1,
+  //   }));
+  // };
+
+  // decreaseFont = () => {
+  //   this.setState((prevState) => ({
+  //     textSize: prevState.textSize - 1,
+  //   }));
+  // };
+
+  state = {
+    page : <Todo/>
   }
 
-  increaseFont = () => {
-      this.setState((prevState) => ({
-        textSize: prevState.textSize + 1,
-      }));
-  };
-
-  decreaseFont = () => {
-      this.setState((prevState) => ({
-        textSize: prevState.textSize - 1,
-      }));
-  };
+  navigateTo = (component) =>{
+    this.setState({page : component})
+  }
 
   render() {
     return (
-      // <div>
-      //   {/* <Parent name = "Imam" age= "23"/> */}
-      //   {/* <Parent count={this.state.count} onIncrement={this.incrementCount}></Parent> */}
-
-      // </div>
-      <ListProduct/>
+      <div className="d-flex">
+        <Sidebar navigateTo={this.navigateTo}/>
+        <main className="w-100 flex-grow-1">
+          <Header />
+          {this.state.page}
+        </main>
+      </div>
     );
   }
 }
