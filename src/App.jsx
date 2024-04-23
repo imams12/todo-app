@@ -1,71 +1,62 @@
-import { useRef } from "react";
 import "./App.css";
-import Home from "./pages/Home/Home";
 import Login from "./pages/Authentication/components/Login";
 import { Component } from "react";
-import Parent from "./pages/Parent";
-import Product from "./pages/Product/Product";
-import ListProduct from "./pages/Product/component/ListProduct";
 import Header from "./shared/Header/Header";
 import Sidebar from "./shared/Sidebar/Sidebar";
 import Dashboard from "./shared/Dashboard/Dashboard";
-import Todo from "./shared/Todo/Todo";
+import PropTypes from "prop-types";
+import withUIState from "./shared/hoc/withUIState.jsx";
 
 class App extends Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     // name : 'Imam'
-  //     // count: 0,
-  //     // isVisible : true
-  //     textSize: 16, // nilai awal ukuran text
-  //   };
-  // }
-
-  // toggleVisibility = () =>{
-  //   this.setState(prevState =>({
-  //     isVisible : !prevState.isVisible
-  //   }))
-  // }
-  // state = { count: 0 };
-
-  // incrementCount = () => {
-  //   this.setState((prevState) => ({
-  //     count: prevState.count + 1,
-  //   }));
-  // };
-
-  // increaseFont = () => {
-  //   this.setState((prevState) => ({
-  //     textSize: prevState.textSize + 1,
-  //   }));
-  // };
-
-  // decreaseFont = () => {
-  //   this.setState((prevState) => ({
-  //     textSize: prevState.textSize - 1,
-  //   }));
-  // };
-
   state = {
-    page : <Todo/>
+    page : <Dashboard/>,
+    isAuthenticated: true,
   }
 
   navigateTo = (component) =>{
     this.setState({page : component})
   }
 
+  handleAuthentication = (status) =>{
+    this.setState({
+      isAuthenticated: status,
+    })
+    if(status){
+      this.props.showToast("Sukses login.");
+    }else{
+      this.props.showToast("Sukses logout.");
+    }
+  }
+
   render() {
+    const {page, isAuthenticated} = this.state;
+
     return (
-      <div className="d-flex">
-        <Sidebar navigateTo={this.navigateTo}/>
-        <main className="w-100 flex-grow-1">
-          <Header />
-          {this.state.page}
-        </main>
-      </div>
+      <>
+      {isAuthenticated ? (
+          <div className="d-flex">
+          <Sidebar navigateTo={this.navigateTo}
+          handleAuthentication={this.handleAuthentication}
+          />
+          <main className="w-100 flex-grow-1">
+            <Header navigateTo={this.navigateTo}
+            handleAuthentication={this.handleAuthentication}
+            />
+            {page}
+          </main>
+        </div>
+      ):(
+          <Login handleAuthentication={this.handleAuthentication} />
+      )}
+      </>
     );
   }
 }
 
-export default App;
+App.propTypes = {
+  showToast: PropTypes.func,
+};
+
+const AppComponent = withUIState(App);
+
+export default AppComponent;

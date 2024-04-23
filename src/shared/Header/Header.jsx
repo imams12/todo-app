@@ -1,8 +1,18 @@
 import { Component } from "react";
 import { IconSettings2 } from "@tabler/icons-react";
+import PropTypes from "prop-types"
+import { IconDoorExit } from "@tabler/icons-react";
+import Profile from "../../pages/Profile/component/Profile";
 
 export default class Header extends Component {
+  handleLogout = () => {
+    if (!confirm("Apakah yakin ingin logout?")) return;
+    this.props.handleAuthentication(false);
+  }
+
   render() {
+    const { navigateTo } = this.props
+
     return (
       <div className="d-flex justify-content-end shadow-sm px-4 py-2">
         <button
@@ -27,15 +37,34 @@ export default class Header extends Component {
           </li>
           <hr />
           <li>
-            <a className="dropdown-item" href="#">
+            <a onClick={() => {
+                    navigateTo(<Profile/>)
+                  }} className="dropdown-item" href="#">
               <i className="me-2">
                 <IconSettings2 size={16} />
               </i>
-              Edit Profil
+              Sunting Profil
             </a>
+          </li>
+          <li>
+            <button 
+              onClick={this.handleLogout}
+              className="dropdown-item"
+              href="#"
+            >
+              <i className="me-2">
+                <IconDoorExit size={16} />
+              </i>
+              Logout
+            </button>
           </li>
         </ul>
       </div>
     );
   }
+}
+
+Header.propTypes = {
+  navigateTo: PropTypes.func,
+  handleAuthentication: PropTypes.func,
 }

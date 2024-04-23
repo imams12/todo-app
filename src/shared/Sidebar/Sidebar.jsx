@@ -7,13 +7,22 @@ import { IconHome2 } from "@tabler/icons-react";
 import { IconApps } from "@tabler/icons-react";
 import { Component } from "react";
 import Dashboard from "../Dashboard/Dashboard";
-import Todo from "../Todo/Todo";
+import Todo from "../../pages/Todo/Todo";
 import { IconListDetails } from "@tabler/icons-react";
+import { IconReceipt } from "@tabler/icons-react";
+import { IconDoorExit } from "@tabler/icons-react";
+import PropTypes from "prop-types"
+import Profile from "../../pages/Profile/component/Profile";
 
 export default class Sidebar extends Component {
+  handleLogout = () => {
+    if(!confirm("Apakah yakin ingin logout?")) return;
+    this.props.handleAuthentication(false);
+  }
+
   render() {
 
-    const {navigateTo } = this.props
+    const { navigateTo } = this.props
 
     return (
       <div
@@ -86,9 +95,41 @@ export default class Sidebar extends Component {
                   </li>
                 </ul>
               </div>
+              <p className="fw-bold mt-4">Transaction</p>
+              <li className="cursor-pointer text-white">
+                <i className="me-3">
+                  <IconReceipt/>
+                </i>
+                <span>Transaction</span>
+              </li>
+              <p className="fw-bold mt-4">Settings</p>
+              <li onClick={() => {
+                    navigateTo(<Profile />)
+                  }}
+              className="cursor-pointer text-white">
+                <i className="me-3">
+                  <IconUser />
+                </i>
+                <span>User</span>
+              </li>
+              <hr />
+              <li 
+                onClick={this.handleLogout}
+                className="cursor-pointer text-white"
+              >
+                <i className="me-3">
+                  <IconDoorExit />
+                </i>
+                <span>Logout</span>
+              </li>
           </ul>
         </nav>
       </div>
     );
   }
+}
+
+Sidebar.propTypes = {
+  navigateTo: PropTypes.func,
+  handleAuthentication: PropTypes.func,
 }
