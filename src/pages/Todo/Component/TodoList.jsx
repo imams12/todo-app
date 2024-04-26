@@ -2,17 +2,39 @@ import { IconTrash } from "@tabler/icons-react";
 import { IconEdit } from "@tabler/icons-react";
 import { Component } from "react";
 import PropTypes from 'prop-types';
+import {remove, selectedTodo} from "../slice/TodoSlice.js";
+import {connect} from "react-redux";
+import { getTodoAction, deleteTodoAction } from "../slice/TodoSlice.js";
+import Loading from "../../../shared/Loading/Loading.jsx"
 
 class TodoList extends Component{
+  componentDidMount(){
+    this.props.getTodoAction();
+  }
+
+  handleDelete = (id) => {
+    if (!confirm("Apakah Yakin Ingin Menghapus Data Tersebut?")) return;
+    // this.props.remove(id);
+    this.props.deleteTodoAction(id);
+  };
+
     render(){
-        const{
+        let{
             todos,
-            handleDelete,
-            handleEdit
+            isLoading            
         } = this.props
+
+        if(isLoading){
+          return <Loading/>
+        }
+
+        if(todos === undefined){
+          todos = [];
+        }
         return (
-            <div>
-                <div className="table-table-responsive">
+            <div className="shadow-sm p-4 rounded-2 mt-4">
+              <h3>List Todo</h3>
+                <div className="table-responsive">
             <table className="table">
               <thead>
                 <tr>
@@ -42,13 +64,13 @@ class TodoList extends Component{
                       <td>
                         <div className="d-flex gap-2">
                           <button
-                            onClick={() => handleEdit(todo.id)}
+                            onClick={() => this.props.selectedTodo(todo)}
                             className="btn btn-primary"
                           >
                             <IconEdit size={22} />
                           </button>
                           <button
-                            onClick={() => handleDelete(todo.id)}
+                            onClick={() => this.handleDelete(todo.id)}
                             className="btn btn-danger text-white"
                           >
                             <IconTrash size={22} />
@@ -68,8 +90,39 @@ class TodoList extends Component{
 
 TodoList.propTypes = {
     todos : PropTypes.array,
-    handleDelete : PropTypes.func,
-    handleEdit : PropTypes.func
+    remove: PropTypes.func,
+    selectedTodo : PropTypes.func,
+    getTodoAction : PropTypes.func,
+    isLoading : PropTypes.bool,
+    deleteTodoAction : PropTypes.func,
 }
 
-export default TodoList
+const mapStateToProps = (state) => {
+  // state.todo -> obj property dari store.reducer
+  // state.todo.todos -> state dari todoSlice
+  return{
+    todos: state.todo.todos,
+    isLoading: state.todo.isLoading,
+  }; 
+};
+
+//import actions dari slice
+const mapDispatchToProps = {
+  remove,
+  selectedTodo,
+  getTodoAction,
+  deleteTodoAction,
+};
+
+// cara ribet
+// const withReduxStore = connect(mapStateprops, null);
+// const TodoListComponent = withReduxStore(TodoList);
+
+
+//shorthand
+const TodoListComponent = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TodoList);
+
+export default TodoListComponent;

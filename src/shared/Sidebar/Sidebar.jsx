@@ -27,7 +27,7 @@ export default class Sidebar extends Component {
     return (
       <div
         className="bg-primary text-white p-4 shadow"
-        style={{ width: 300, minHeight: "100dvh" }}
+        style={{ width: 300, minHeight: "100dvh"}}
       >
         <div className="font-logo text-center mb-5">
             <h2 className="fs-2">
