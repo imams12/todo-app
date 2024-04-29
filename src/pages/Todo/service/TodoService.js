@@ -13,6 +13,7 @@ function TodoService() {
       setTimeout(() => {
         if (todo) {
           todos = [...todos, todo];
+          console.log(todos);
           resolve("Sukses tambah todo");
         } else {
           reject("todo tidak boleh kosong");
@@ -39,12 +40,14 @@ function TodoService() {
         if (updateTodo) {
           todos = todos.map((todo) => {
             if (todo.id === updateTodo.id) {
-              resolve("Sukses update todo");
               return { ...updateTodo };
+            } else {
+              return todo;
             }
-            reject("todo tidak ada");
-            return todo;
           });
+          resolve("Sukses update todo");
+        } else {
+          reject("todo tidak ada");
         }
       }, 2000);
     });

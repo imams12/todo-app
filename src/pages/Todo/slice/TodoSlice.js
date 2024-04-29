@@ -10,9 +10,9 @@ export const getTodoAction = createAsyncThunk("todo/getTodo", async () => {
 export const postTodoAction = createAsyncThunk(
   " todo/postTodo",
   async (payload, thunkAPI) => {
-    const response = await service.create(payload);
-    await thunkAPI.dispatch(getTodoAction());
-    return response;
+    await service.create(payload);
+    const response = await thunkAPI.dispatch(getTodoAction());
+    return response.payload;
   }
 );
 
@@ -34,6 +34,15 @@ export const deleteTodoAction = createAsyncThunk(
   }
 );
 
+// export const putTodoAction = createAsyncThunk(
+//   "todo/putTodo",
+//   async (payload, thunkAPI) => {
+//     const response = await service.update(payload);
+//     await thunkAPI.dispatch(getTodoAction());
+//     return response;
+//   }
+// );
+
 const TodoSlice = createSlice({
   name: "todo",
   initialState: {
@@ -51,7 +60,7 @@ const TodoSlice = createSlice({
       state.todos = state.todos.filter((todo) => todo.id !== payload);
     },
     selectedTodo: (state, { payload }) => {
-      state.todo = payload;
+      state.todo = state.todos.find((todo) => todo.id === payload);
     },
     update: (state, { payload }) => {
       state.todos = state.todos.map((todo) => {
@@ -105,6 +114,16 @@ const TodoSlice = createSlice({
     builder.addCase(deleteTodoAction.rejected, (state) => {
       state.isLoading = false;
     });
+    // builder.addCase(putTodoAction.pending, (state) => {
+    //   state.isLoading = true;
+    // });
+    // builder.addCase(putTodoAction.fulfilled, (state, { payload }) => {
+    //   state.todos = payload;
+    //   state.isLoading = false;
+    // });
+    // builder.addCase(putTodoAction.rejected, (state) => {
+    //   state.isLoading = false;
+    // });
   },
 });
 
