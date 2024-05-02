@@ -1,5 +1,6 @@
 import React from "react";
 import hero from "../../../assets/hero.png";
+import { Link } from "react-router-dom";
 
 const Hero = () => {
   return (
@@ -21,7 +22,7 @@ const Hero = () => {
             </p>
             <div className="row gap-4">
               <button className="col-4 btn btn-primary rounded-0">
-                Belanja Sekarang
+                <Link to="/login" className="text-white text-decoration-none">Belanja Sekarang</Link>
               </button>
               <button className="col-4 btn btn-outline-secondary rounded-0">
                 Kontak Kami

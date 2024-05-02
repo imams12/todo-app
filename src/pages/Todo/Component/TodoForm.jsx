@@ -4,6 +4,8 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function TodoForm() {
   const [form, setForm] = useState({
@@ -26,6 +28,8 @@ function TodoForm() {
       setForm(todo);
     }
   }, [todo]);
+
+  const navigate = useNavigate();
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -75,6 +79,7 @@ function TodoForm() {
       dispatch(postTodoAction(todo));
     }
     clearForm();
+    navigate("/todos");
   };
 
   const clearForm = () => {

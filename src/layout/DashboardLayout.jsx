@@ -8,7 +8,7 @@ import PropTypes from "prop-types";
 import withUIState from "./shared/hoc/withUIState.jsx";
 import { Outlet } from "react-router-dom";
 
-class App extends Component {
+class DashboardLayout extends Component {
   state = {
     // page : <Dashboard/>,
     isAuthenticated: true,
@@ -56,10 +56,10 @@ class App extends Component {
   }
 }
 
-App.propTypes = {
+DashboardLayout.propTypes = {
   showToast: PropTypes.func,
 };
 
-const AppComponent = withUIState(App);
+const DashboardLayoutComponent = withUIState(DashboardLayout);
 
-export default AppComponent;
+export default DashboardLayoutComponent;

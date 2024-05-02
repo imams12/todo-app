@@ -13,16 +13,17 @@ import { IconReceipt } from "@tabler/icons-react";
 import { IconDoorExit } from "@tabler/icons-react";
 import PropTypes from "prop-types"
 import Profile from "../../pages/Profile/component/Profile";
+import { Link } from "react-router-dom";
 
-export default class Sidebar extends Component {
-  handleLogout = () => {
-    if(!confirm("Apakah yakin ingin logout?")) return;
-    this.props.handleAuthentication(false);
-  }
+export default function Sidebar (){
+//   handleLogout = () => {
+//     if(!confirm("Apakah yakin ingin logout?")) return;
+//     this.props.handleAuthentication(false);
+//   }
 
-  render() {
+  // render() {
 
-    const { navigateTo } = this.props
+  //   const { navigateTo } = this.props
 
     return (
       <div
@@ -32,7 +33,8 @@ export default class Sidebar extends Component {
         <div className="font-logo text-center mb-5">
             <h2 className="fs-2">
                 <i>
-                    <b>Enigma </b> Shop
+                <Link to="/" className="text-white text-decoration-none" href="/"><b>Enigma </b> Shop</Link>
+                    
                 </i>
             </h2>
             <h2 className="fs-6 my-4 font-primary fw-bold">
@@ -57,41 +59,56 @@ export default class Sidebar extends Component {
               </li>
               <div className="collapse" id="dashboard-collapse">
                 <ul className="text-white cursor-pointer d-flex flex-column gap-3 btn-toggle-nav list-unstyled mx-4">
-                  <li onClick={() => {
-                    navigateTo(<Dashboard />)
-                  }}
+                  <li 
+                  // onClick={() => {
+                  //   navigateTo(<Dashboard />)
+                  // }}
                   className="cursor-pointer">
+                    
                     <i className="me-3">
                       <IconHome2/>
                     </i>
-                    <span>Home</span>
+                    <span>
+                    <Link to="/dashboard" className="text-white text-decoration-none" href="/dashboard">Home</Link>
+                    </span>
+                    
                   </li>
-                  <li onClick={() => {
-                    navigateTo(<Todo />)
-                  }}
+                  <li 
+                  // onClick={() => {
+                  //   navigateTo(<Todo />)
+                  // }}
                   className="cursor-pointer">
+                    <Link to={"/todo"}></Link>
                     <i className="me-3">
                       <IconListDetails/>
                     </i>
-                    <span>Todo</span>
+                    <span>
+                      <Link to="/todos" className="text-white text-decoration-none" href="/todos">Todo</Link>
+                    </span>
                   </li>
                   <li className="cursor-pointer">
                     <i className="me-3">
                       <IconAsset/>
                     </i>
-                    <span>Product</span>
+                    <span>
+                    <Link to="/products" className="text-white text-decoration-none" href="/products">Product</Link>
+                    </span>
                   </li>
                   <li className="cursor-pointer">
                     <i className="me-3">
                       <IconUsers/>
                     </i>
-                    <span>Customer</span>
+                    <span>
+                    <Link to="/customers" className="text-white text-decoration-none" href="/customers">Customer</Link>
+                    </span>
                   </li>
                   <li className="cursor-pointer">
                     <i className="me-3">
                       <IconAccessible/>
                     </i>
-                    <span>Admin</span>
+                    <span>
+                    <Link to="/admins" className="text-white text-decoration-none" href="/admins">Admin</Link>
+                    </span>
                   </li>
                 </ul>
               </div>
@@ -100,36 +117,43 @@ export default class Sidebar extends Component {
                 <i className="me-3">
                   <IconReceipt/>
                 </i>
-                <span>Transaction</span>
+                <span>
+                <Link to="/trx" className="text-white text-decoration-none" href="/trx">Transaction</Link>
+                </span>
               </li>
               <p className="fw-bold mt-4">Settings</p>
-              <li onClick={() => {
-                    navigateTo(<Profile />)
-                  }}
+              <li 
+              // onClick={() => {
+              //       navigateTo(<Profile />)
+              //     }}
               className="cursor-pointer text-white">
                 <i className="me-3">
                   <IconUser />
                 </i>
-                <span>User</span>
+                <span>
+                <Link to="/profile" className="text-white text-decoration-none" href="/profile">User</Link>
+                </span>
               </li>
               <hr />
               <li 
-                onClick={this.handleLogout}
+                // onClick={this.handleLogout}
                 className="cursor-pointer text-white"
               >
                 <i className="me-3">
                   <IconDoorExit />
                 </i>
-                <span>Logout</span>
+                <span>
+                  <Link to="/login" className="text-white text-decoration-none">Logout</Link>
+                  </span>
               </li>
           </ul>
         </nav>
       </div>
     );
-  }
+  // }
 }
 
-Sidebar.propTypes = {
-  navigateTo: PropTypes.func,
-  handleAuthentication: PropTypes.func,
-}
+// Sidebar.propTypes = {
+//   navigateTo: PropTypes.func,
+//   handleAuthentication: PropTypes.func,
+// }

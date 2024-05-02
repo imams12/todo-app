@@ -3,6 +3,7 @@ import { IconSettings2 } from "@tabler/icons-react";
 import PropTypes from "prop-types";
 import { IconDoorExit } from "@tabler/icons-react";
 import Profile from "../../pages/Profile/component/Profile";
+import { Link } from "react-router-dom";
 
 export default class Header extends Component {
   handleLogout = () => {
@@ -38,28 +39,29 @@ export default class Header extends Component {
           <hr />
           <li>
             <a
-              onClick={() => {
-                navigateTo(<Profile />);
-              }}
+              // onClick={() => {
+              //   navigateTo(<Profile />);
+              // }}
               className="dropdown-item"
               href="#"
             >
               <i className="me-2">
                 <IconSettings2 size={16} />
               </i>
-              Sunting Profil
+              <Link to="/profile" className="text-dark text-decoration-none" href="/profile">Sunting Profil</Link> 
             </a>
           </li>
           <li>
             <button
-              onClick={this.handleLogout}
+              // onClick={this.handleLogout}
               className="dropdown-item"
               href="#"
             >
               <i className="me-2">
                 <IconDoorExit size={16} />
               </i>
-              Logout
+              <Link to="/login" className="text-dark text-decoration-none">Logout</Link> 
+              
             </button>
           </li>
         </ul>

@@ -14,6 +14,12 @@ export default class ListProduct extends Component {
     });
   };
 
+  handleChangeItemCount = (number) =>{
+    this.setState({
+      itemCount: this.state.itemCount + number,
+    })
+  }
+
   render() {
     return (
       <section>
@@ -44,6 +50,7 @@ export default class ListProduct extends Component {
                 title="Ale Ale"
                 price={2000}
                 changeSaveCount={this.handleChangeSaveCount}
+                changeItemCount={this.handleChangeItemCount}
               />
             </div>
 
@@ -53,6 +60,7 @@ export default class ListProduct extends Component {
                 title="Beng Beng"
                 price={3000}
                 changeSaveCount={this.handleChangeSaveCount}
+                changeItemCount={this.handleChangeItemCount}
               />
             </div>
 
@@ -62,6 +70,7 @@ export default class ListProduct extends Component {
                 title="Oleo"
                 price={4000}
                 changeSaveCount={this.handleChangeSaveCount}
+                changeItemCount={this.handleChangeItemCount}
               />
             </div>
 
@@ -71,6 +80,7 @@ export default class ListProduct extends Component {
                 title="Biskuat"
                 price={5000}
                 changeSaveCount={this.handleChangeSaveCount}
+                changeItemCount={this.handleChangeItemCount}
               />
             </div>
           </div>

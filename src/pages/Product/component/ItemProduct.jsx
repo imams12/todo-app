@@ -1,6 +1,10 @@
 import { Component } from "react";
-import { IconShoppingCart, IconHeartFilled, IconHeart } from "@tabler/icons-react";
-import propTypes from "prop-types"
+import {
+  IconShoppingCart,
+  IconHeartFilled,
+  IconHeart,
+} from "@tabler/icons-react";
+import propTypes from "prop-types";
 
 export default class ItemProduct extends Component {
   state = {
@@ -10,15 +14,21 @@ export default class ItemProduct extends Component {
 
   handleDecrement = () => {
     if (this.state.count === 0) return;
-    this.setState({
-      count: this.state.count - 1,
-    });
+    this.setState(
+      {
+        count: this.state.count - 1,
+      },
+      () => this.props.changeItemCount(-1)
+    );
   };
 
   handleIncrement = () => {
-    this.setState({
-      count: this.state.count + 1,
-    });
+    this.setState(
+      {
+        count: this.state.count + 1,
+      },
+      () => this.props.changeItemCount(1)
+    );
   };
 
   handleChangeSave = () => {
@@ -50,9 +60,10 @@ export default class ItemProduct extends Component {
           <div className="d-flex justify-content-between p-2">
             <div className="d-flex align-items-center justify-content-start column-gap-4">
               {this.state.count === 0 ? (
-                <button 
-                onClick={this.handleIncrement}
-                className="d-flex align-items-center column-gap-2 btn btn-primary">
+                <button
+                  onClick={this.handleIncrement}
+                  className="d-flex align-items-center column-gap-2 btn btn-primary"
+                >
                   <IconShoppingCart />
                   Add Item
                 </button>
@@ -78,9 +89,8 @@ export default class ItemProduct extends Component {
             </div>
 
             <button onClick={this.handleChangeSave} className="btn btn-link">
-                <i>{this.state.isSave ? <IconHeartFilled/> : <IconHeart/>}</i>
+              <i>{this.state.isSave ? <IconHeartFilled /> : <IconHeart />}</i>
             </button>
-
           </div>
         </div>
       </div>
@@ -88,5 +98,6 @@ export default class ItemProduct extends Component {
   }
 }
 ItemProduct.propTypes = {
-    changeSaveCount : propTypes.func.isRequired
-}
+  changeSaveCount: propTypes.func.isRequired,
+  changeItemCount: propTypes.func.isRequired,
+};

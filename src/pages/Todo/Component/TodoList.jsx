@@ -5,6 +5,8 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import Loading from "../../../shared/Loading/Loading.jsx";
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function TodoList() {
   //mirip dengan mapStateToProps (mirip)
@@ -20,6 +22,7 @@ function TodoList() {
   if (isLoading) {
     return <Loading/>;
   }
+
 
   return (
     <div className="shadow-sm p-4 rounded-2 mt-4">
@@ -56,9 +59,10 @@ function TodoList() {
                       <button
                         onClick={() => dispatch(selectedTodo(todo.id))}
                         className="btn btn-primary"
-                      >
-                        <IconEdit size={22} />
+                      > 
+                       <Link to={"form"} className="text-white text-decoration-none"><IconEdit size={22} /></Link> 
                       </button>
+                      
                       <button
                         onClick={() => dispatch(deleteTodoAction(todo.id))}
                         className="btn btn-danger text-white"

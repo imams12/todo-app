@@ -1,11 +1,11 @@
 import { Component } from "react";
-import ItemProduct from "./component/ItemProduct";
+import ListProduct from "./component/ListProduct.jsx";
 
 export default class Product extends Component{
     render(){
         return(
             <>
-            <ItemProduct/>
+            <ListProduct/>
             </>
         )
     }
